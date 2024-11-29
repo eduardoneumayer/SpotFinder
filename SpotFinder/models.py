@@ -1,12 +1,14 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Pessoa(models.Model):
-    nome = models.CharField(max_length=100)
-    telefone = models.IntegerField(max_length=11),
-    email = models.EmailField(blank=True, null=True)
+
+class Pessoa(AbstractUser):
+    telefone = models.CharField(max_length=11, blank=True, null=True)  # Melhor usar CharField para números de telefone
+    nome = models.CharField(max_length=100, blank=True, null=True)  # 'first_name' já existe no AbstractUser
 
     def __str__(self):
-        return self.nome
+        return self.nome or self.username
+
 
 
 class Carro(models.Model):
